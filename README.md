@@ -1,7 +1,8 @@
 <p align='center'>
   <img style="background-color: rgba(0,0,0,0.3)"src='https://raw.githubusercontent.com/nazocthun/SyncPlayer/main/public/favicon.svg' alt='' width='200'/>
 </p>
-<p align='center' style="font-size: 30px; font-weight: bold">SyncPlay</p>
+<p align='center' style="font-size: 30px; font-weight: bold">SyncPlayer</p>
+
 ## Features
 
 - Load a video with a URL
@@ -10,7 +11,7 @@
 
 ## Changelog
 
-####v0.01 22/04/21
+#### v0.01 22/04/21
 - first initial version
 
 
