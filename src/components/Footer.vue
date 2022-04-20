@@ -13,7 +13,7 @@ import { isDark, toggleDark } from '~/composables'
       class="icon-btn"
       i-carbon-logo-github
       rel="noreferrer"
-      href="https://github.com/nazocthun/SyncPlay"
+      href="https://github.com/nazocthun/SyncPlayer"
       target="_blank"
       title="GitHub"
     />
