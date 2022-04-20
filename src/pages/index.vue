@@ -1,50 +1,57 @@
 <script setup lang="ts">
-const name = $ref('')
-
-const router = useRouter()
-const go = () => {
-  if (name)
-    router.push(`/hi/${encodeURIComponent(name)}`)
+const tempVideoUrl = ref('')
+const videoUrl = ref('')
+const video = ref<HTMLVideoElement>()
+function changeVideoUrl() {
+  videoUrl.value = tempVideoUrl.value
 }
+const formatted = useDateFormat(useNow(), 'YYYY-MM-DD HH:mm:ss')
+
+const today = formatted.value.split(' ')[0]
+const nowTime = useDateFormat(useNow(), 'HH:mm').value
+
+const setTime = ref(nowTime)
+
+const targetTime = ref<Date>(new Date('2099-12-31 23:59'))
+function setTargetTime() {
+  targetTime.value = new Date(`${today} ${setTime.value}`)
+  resume()
+}
+
+const now = useNow()
+const { pause, resume } = watchPausable(
+  now,
+  v => {
+    if (v >= targetTime.value) {
+      video.value!.play()
+      pause()
+    }
+  },
+  {
+    immediate: true,
+  },
+)
 </script>
 
 <template>
-  <div>
-    <div i-carbon-campsite text-4xl inline-block />
-    <p>
-      <a rel="noreferrer" href="https://github.com/antfu/vitesse-lite" target="_blank">
-        Vitesse Lite
-      </a>
-    </p>
-    <p>
-      <em text-sm op75>Opinionated Vite Starter Template</em>
-    </p>
-
-    <div py-4 />
-
-    <input
-      id="input"
-      v-model="name"
-      placeholder="What's your name?"
-      type="text"
-      autocomplete="false"
-      p="x-4 y-2"
-      w="250px"
-      text="center"
-      bg="transparent"
-      border="~ rounded gray-200 dark:gray-700"
-      outline="none active:none"
-      @keydown.enter="go"
-    >
-
-    <div>
-      <button
-        class="m-3 text-sm btn"
-        :disabled="!name"
-        @click="go"
-      >
-        Go
+<div flex flex-col justify-center items-center>
+  <div text-3xl>SyncPlayer</div>
+  <Footer mb-2 />
+  <div w-200>
+    <div flex m-2>
+      <input text-gray-500 flex-1 rounded border="~ gray-500" v-model="tempVideoUrl" placeholder=" Video Url">
+      <button w-24 ml-2 btn @click="changeVideoUrl">Submit</button>
+    </div>
+    <div flex m-2>
+      <div inline-block flex-1 text-center my-auto>
+        现在时间：{{ formatted }}
+      </div>
+      <input text-gray-500 rounded border="~ gray-500" id="time" type="time" v-model="setTime">
+      <button w-24 btn ml-2 float-right @click="setTargetTime">
+        Set
       </button>
     </div>
+    <video ref="video" w-200 aspect-video mt-5 controls :src="videoUrl"/>
   </div>
+</div>
 </template>

@@ -4,10 +4,15 @@
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    Counter: typeof import('./src/components/Counter.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
+    Menu: typeof import('./src/components/Menu.vue')['default']
+    MenuItem: typeof import('./src/components/MenuItem.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Scrabber: typeof import('./src/components/Scrabber.vue')['default']
+    Scrubber: typeof import('./src/components/Scrubber.vue')['default']
+    Spinner: typeof import('./src/components/Spinner.vue')['default']
+    VideoWrapper: typeof import('./src/components/VideoWrapper.vue')['default']
   }
 }
 
